@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPureWhite"
+    android:clipChildren="false"
+    tools:context=".MainActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPureWhite"
+        android:clipChildren="false"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:clipChildren="false">
+
+            <ImageButton
+                android:id="@+id/ib_settings"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:elevation="5dp"
+                android:padding="12dp"
+                android:scaleType="fitCenter"
+                android:tint="@color/colorAccent"
+                app:srcCompat="@drawable/outline_settings_black_48" />
+        </FrameLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/tv_schedule_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearanceTitle" />
+
+    <FrameLayout
+        android:id="@+id/container_day"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/container_day_picker"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="-12dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fillViewport="true">
+
+            <include
+                layout="@layout/item_weekday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true" />
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/container_day_picker"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginBottom="-12dp"
+        app:cardBackgroundColor="@color/colorPureWhite"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_day_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

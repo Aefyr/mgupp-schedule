@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">МГУПП</string>
+
+    <string name="common_syncing">"   Синхронизация…"</string>
+    <string name="common_error">Ошибка</string>
+
+    <string name="schedule_title_live">Расписание</string>
+    <string name="schedule_title_cached">💾 Расписание</string>
+    <string name="schedule_today">Сегодня</string>
+
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MGUPP</string>
+
+    <string name="common_syncing">"   Syncing…"</string>
+    <string name="common_error">Error</string>
+
+    <string name="schedule_title_live">Schedule</string>
+    <string name="schedule_title_cached">💾 Schedule</string>
+    <string name="schedule_today">Today</string>
+
+</resources>
