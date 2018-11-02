@@ -11,6 +11,7 @@ import com.aefyr.mgupp.adapter.LessonsRecyclerAdapter;
 import com.aefyr.mgupp.animation.ViewChangeAlphaTransition;
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Schedule;
+import com.aefyr.mgupp.data.LoadableData;
 import com.aefyr.mgupp.data.ScheduleViewModel;
 import com.aefyr.mgupp.util.Util;
 
@@ -46,26 +47,19 @@ public class MainActivity extends AppCompatActivity {
         lessonsRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
         mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
-        mViewModel.getScheduleLiveData().observe(this, new Observer<Schedule>() {
-            @Override
-            public void onChanged(Schedule schedule) {
-                switch (mViewModel.getScheduleLiveData().getState()) {
-                    case OK_LIVE:
-                        setTitle(getString(R.string.schedule_title_live));
-                        if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() > schedule.days().size())
-                            mViewModel.setSelectedDay(Util.getTodayDayIndex(schedule));
 
-                        updateSelectedDay();
-                        updateDayPicker();
-                        break;
-                    case LOADING:
-                        setTitle(getString(R.string.common_syncing));
-                        mAnimationNeededOnFirstChange = true;
-                        break;
-                    default:
-                        setTitle(getString(R.string.common_error));
-                        break;
-                }
+        mViewModel.getScheduleLiveData().observe(this, (scheduleLoadableData)->{
+            switch (scheduleLoadableData.getLoadingState()){
+                case LOADING:
+                    setTitle(getString(R.string.common_syncing));
+                    mAnimationNeededOnFirstChange = true;
+                    break;
+                case LOADED:
+                    dataChanged();
+                    break;
+                case ERROR:
+                    setTitle(getString(R.string.common_error));
+                    break;
             }
         });
 
@@ -87,8 +81,17 @@ public class MainActivity extends AppCompatActivity {
         dayPicker.setAdapter(mDayPickerAdapter);
     }
 
+    private void dataChanged(){
+        setTitle(getString(R.string.schedule_title_live));
+        if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() > getScheduleFromViewModel().days().size())
+            mViewModel.setSelectedDay(Util.getTodayDayIndex(getScheduleFromViewModel()));
+
+        updateSelectedDay();
+        updateDayPicker();
+    }
+
     private void updateSelectedDay() {
-        Day day = mViewModel.getScheduleLiveData().getValue().days().get(mViewModel.getSelectedDay());
+        Day day = getScheduleFromViewModel().days().get(mViewModel.getSelectedDay());
 
         if (mDayChangeTransitionMain == null) {
             mDayChangeTransitionMain = new ViewChangeAlphaTransition(findViewById(R.id.container_day), 300);
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDayPicker() {
-        Schedule schedule = mViewModel.getScheduleLiveData().getValue();
+        Schedule schedule = getScheduleFromViewModel();
 
         ArrayList<Day> days = schedule.days();
         ArrayList<DayPickerRecyclerAdapter.DayPickerItem> items = new ArrayList<>(days.size());
@@ -132,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setTitle(String title) {
         ((TextView) findViewById(R.id.tv_schedule_title)).setText(title);
+    }
+
+    private Schedule getScheduleFromViewModel(){
+        return mViewModel.getScheduleLiveData().getValue().getData();
     }
 
     private void setScheduleId() {
