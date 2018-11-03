@@ -1,4 +1,4 @@
-package com.aefyr.mgupp.adapter;
+package com.aefyr.mgupp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

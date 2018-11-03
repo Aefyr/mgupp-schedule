@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.aefyr.mgupp.adapter.DayPickerAdapter;
-import com.aefyr.mgupp.adapter.LessonsAdapter;
-import com.aefyr.mgupp.animation.ViewChangeAlphaTransition;
+import com.aefyr.mgupp.adapters.DayPickerAdapter;
+import com.aefyr.mgupp.adapters.LessonsAdapter;
+import com.aefyr.mgupp.animations.ViewChangeAlphaTransition;
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Schedule;
 import com.aefyr.mgupp.data.ScheduleViewModel;
-import com.aefyr.mgupp.util.PreferencesHelper;
-import com.aefyr.mgupp.util.Util;
+import com.aefyr.mgupp.utils.PreferencesHelper;
+import com.aefyr.mgupp.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(getString(R.string.schedule_title_live));
 
         if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() > getScheduleFromViewModel().days().size()) {
-            int todayIndex = Util.getTodayDayIndex(getScheduleFromViewModel());
+            int todayIndex = Utils.getTodayDayIndex(getScheduleFromViewModel());
             if(todayIndex == -1)
                 mViewModel.setSelectedDay(0);
         }
@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
 
             if(!mAnimationNeededOnFirstChange) {
                 ((TextView) findViewById(R.id.tv_weekday_title)).setText(day.name());
-                mLessonsAdapter.setDay(day, Util.isCurrentWeekOdd(getScheduleFromViewModel()));
+                mLessonsAdapter.setDay(day, Utils.isCurrentWeekOdd(getScheduleFromViewModel()));
                 return;
             }
         }
         mDayChangeTransitionMain.animateViewChange(() -> {
             ((TextView) findViewById(R.id.tv_weekday_title)).setText(day.name());
-            mLessonsAdapter.setDay(day, Util.isCurrentWeekOdd(getScheduleFromViewModel()));
+            mLessonsAdapter.setDay(day, Utils.isCurrentWeekOdd(getScheduleFromViewModel()));
         });
     }
 
@@ -126,13 +126,13 @@ public class MainActivity extends AppCompatActivity {
             mDayChangeTransitionDayPicker = new ViewChangeAlphaTransition(findViewById(R.id.rv_day_picker), 300);
 
             if(!mAnimationNeededOnFirstChange) {
-                mDayPickerAdapter.setData(items, mViewModel.getSelectedDay(), Util.getTodayDayIndex(schedule));
+                mDayPickerAdapter.setData(items, mViewModel.getSelectedDay(), Utils.getTodayDayIndex(schedule));
                 return;
             }
         }
 
         mDayChangeTransitionDayPicker.animateViewChange(()->{
-                mDayPickerAdapter.setData(items, mViewModel.getSelectedDay(), Util.getTodayDayIndex(schedule));
+                mDayPickerAdapter.setData(items, mViewModel.getSelectedDay(), Utils.getTodayDayIndex(schedule));
         });
     }
 

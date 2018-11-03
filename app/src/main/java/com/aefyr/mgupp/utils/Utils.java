@@ -1,6 +1,4 @@
-package com.aefyr.mgupp.util;
-
-import android.util.Log;
+package com.aefyr.mgupp.utils;
 
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Schedule;
@@ -11,7 +9,7 @@ import java.util.Date;
 /**
  * Created by Aefyr on 07.10.2018.
  */
-public class Util {
+public class Utils {
 
     public static boolean isCurrentWeekOdd(Schedule schedule) {
         LegitCalendar c = new LegitCalendar();

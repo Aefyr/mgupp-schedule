@@ -1,6 +1,6 @@
-package com.aefyr.mgupp.util;
+package com.aefyr.mgupp.utils;
 
-public class StringUtil {
+public class StringUtils {
     public static String capitalize(String s) {
         return Character.toUpperCase(s.charAt(0)) + s.substring(1);
     }

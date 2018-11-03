@@ -1,4 +1,4 @@
-package com.aefyr.mgupp.animation;
+package com.aefyr.mgupp.animations;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

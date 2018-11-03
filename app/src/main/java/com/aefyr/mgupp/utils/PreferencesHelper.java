@@ -1,4 +1,4 @@
-package com.aefyr.mgupp.util;
+package com.aefyr.mgupp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

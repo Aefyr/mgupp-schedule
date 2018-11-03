@@ -1,4 +1,4 @@
-package com.aefyr.mgupp.adapter;
+package com.aefyr.mgupp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aefyr.mgupp.R;
-import com.aefyr.mgupp.util.Util;
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Lesson;
 

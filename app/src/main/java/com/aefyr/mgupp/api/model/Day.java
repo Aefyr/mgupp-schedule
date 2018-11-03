@@ -1,7 +1,7 @@
 package com.aefyr.mgupp.api.model;
 
-import com.aefyr.mgupp.util.StringUtil;
-import com.aefyr.mgupp.util.Util;
+import com.aefyr.mgupp.utils.StringUtils;
+import com.aefyr.mgupp.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class Day {
     }
 
     public String name() {
-        return StringUtil.capitalize(sDayNameFormatSDF.format(mDate));
+        return StringUtils.capitalize(sDayNameFormatSDF.format(mDate));
     }
 
     public String shortName() {
@@ -54,7 +54,7 @@ public class Day {
     }
 
     public ArrayList<Lesson> lessons() {
-        return lessons(Util.isCurrentWeekOdd(mSchedule));
+        return lessons(Utils.isCurrentWeekOdd(mSchedule));
     }
 
     public ArrayList<Lesson> lessons(boolean odd) {

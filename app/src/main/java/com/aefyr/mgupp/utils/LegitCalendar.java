@@ -1,4 +1,4 @@
-package com.aefyr.mgupp.util;
+package com.aefyr.mgupp.utils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
