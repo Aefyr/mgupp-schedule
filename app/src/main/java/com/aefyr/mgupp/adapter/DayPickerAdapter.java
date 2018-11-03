@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DayPickerRecyclerAdapter extends RecyclerView.Adapter<DayPickerRecyclerAdapter.ViewHolder> {
+public class DayPickerAdapter extends RecyclerView.Adapter<DayPickerAdapter.ViewHolder> {
     private ArrayList<DayPickerItem> mData;
     private int mSelectedItem;
     private int mTodayItem;
@@ -21,7 +21,7 @@ public class DayPickerRecyclerAdapter extends RecyclerView.Adapter<DayPickerRecy
     private LayoutInflater mInflater;
     private OnItemSelectedListener mListener;
 
-    public DayPickerRecyclerAdapter(Context c) {
+    public DayPickerAdapter(Context c) {
         mInflater = LayoutInflater.from(c);
     }
 

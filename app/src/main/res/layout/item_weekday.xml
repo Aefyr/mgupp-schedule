@@ -30,4 +30,5 @@
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never" />
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

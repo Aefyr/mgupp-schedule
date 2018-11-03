@@ -1,6 +1,7 @@
 package com.aefyr.mgupp.api.model;
 
 import com.aefyr.mgupp.util.StringUtil;
+import com.aefyr.mgupp.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Day {
     private static SimpleDateFormat sDayNameFormatSDF = new SimpleDateFormat("EEEE", Locale.getDefault());
     private static SimpleDateFormat sDayNameFormatShortSDF = new SimpleDateFormat("EE", Locale.getDefault());
 
+    private Schedule mSchedule;
     private Date mDate;
     private String mName;
     private ArrayList<Lesson> mLessons;
@@ -25,6 +27,10 @@ public class Day {
         mLessons = lessons;
 
         mDate = sDayNameParseSDF.parse(name);
+    }
+
+    public void setSchedule(Schedule schedule){
+        mSchedule = schedule;
     }
 
     public String name() {
@@ -43,8 +49,12 @@ public class Day {
         return mDate;
     }
 
-    public ArrayList<Lesson> lessons() {
+    public ArrayList<Lesson> allLessons(){
         return mLessons;
+    }
+
+    public ArrayList<Lesson> lessons() {
+        return lessons(Util.isCurrentWeekOdd(mSchedule));
     }
 
     public ArrayList<Lesson> lessons(boolean odd) {

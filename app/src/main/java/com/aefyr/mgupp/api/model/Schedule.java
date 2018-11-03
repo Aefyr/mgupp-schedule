@@ -30,6 +30,10 @@ public class Schedule {
 
         public Builder days(ArrayList<Day> days) {
             mSchedule.mDays = days;
+
+            for(Day d: mSchedule.mDays)
+                d.setSchedule(mSchedule);
+
             return this;
         }
 

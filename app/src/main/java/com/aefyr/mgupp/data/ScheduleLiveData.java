@@ -2,7 +2,7 @@ package com.aefyr.mgupp.data;
 
 import android.content.Context;
 
-import com.aefyr.mgupp.PreferencesHelper;
+import com.aefyr.mgupp.util.PreferencesHelper;
 import com.aefyr.mgupp.api.ApiRequest;
 import com.aefyr.mgupp.api.ScheduleGet;
 import com.aefyr.mgupp.api.model.Schedule;

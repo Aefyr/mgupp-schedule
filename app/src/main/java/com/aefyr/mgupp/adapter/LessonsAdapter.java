@@ -20,18 +20,20 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Aefyr on 11.10.2018.
  */
-public class LessonsRecyclerAdapter extends RecyclerView.Adapter<LessonsRecyclerAdapter.ViewHolder> {
+public class LessonsAdapter extends RecyclerView.Adapter<LessonsAdapter.ViewHolder> {
     private Day mDay;
+    private boolean mOdd;
     private LayoutInflater mInflater;
     private SimpleDateFormat mSdf;
 
-    public LessonsRecyclerAdapter(Context c) {
+    public LessonsAdapter(Context c) {
         mInflater = LayoutInflater.from(c);
         mSdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
     }
 
-    public void setDay(Day day) {
+    public void setDay(Day day, boolean odd) {
         mDay = day;
+        mOdd = odd;
         notifyDataSetChanged();
     }
 
@@ -44,7 +46,7 @@ public class LessonsRecyclerAdapter extends RecyclerView.Adapter<LessonsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Lesson lesson = mDay.lessons(Util.isCurrentWeekOdd()).get(position);
+        Lesson lesson = mDay.lessons(mOdd).get(position);
 
 
         holder.name.setText(lesson.name());
@@ -54,7 +56,7 @@ public class LessonsRecyclerAdapter extends RecyclerView.Adapter<LessonsRecycler
 
     @Override
     public int getItemCount() {
-        return mDay == null ? 0 : mDay.lessons(Util.isCurrentWeekOdd()).size();
+        return mDay == null ? 0 : mDay.lessons(mOdd).size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

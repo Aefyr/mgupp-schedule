@@ -6,20 +6,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.aefyr.mgupp.adapter.DayPickerRecyclerAdapter;
-import com.aefyr.mgupp.adapter.LessonsRecyclerAdapter;
+import com.aefyr.mgupp.adapter.DayPickerAdapter;
+import com.aefyr.mgupp.adapter.LessonsAdapter;
 import com.aefyr.mgupp.animation.ViewChangeAlphaTransition;
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Schedule;
-import com.aefyr.mgupp.data.LoadableData;
 import com.aefyr.mgupp.data.ScheduleViewModel;
+import com.aefyr.mgupp.util.PreferencesHelper;
 import com.aefyr.mgupp.util.Util;
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ScheduleViewModel mViewModel;
 
-    private DayPickerRecyclerAdapter mDayPickerAdapter;
-    private LessonsRecyclerAdapter mLessonsAdapter;
+    private DayPickerAdapter mDayPickerAdapter;
+    private LessonsAdapter mLessonsAdapter;
 
     private boolean mAnimationNeededOnFirstChange = false; //And it's needed when there's no data available to show instantly and the placeholder will be shown for some time
     private ViewChangeAlphaTransition mDayChangeTransitionMain;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView lessonsRecycler = findViewById(R.id.rv_weekday_lessons);
-        mLessonsAdapter = new LessonsRecyclerAdapter(MainActivity.this);
+        mLessonsAdapter = new LessonsAdapter(MainActivity.this);
         lessonsRecycler.setAdapter(mLessonsAdapter);
         lessonsRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         RecyclerView dayPicker = findViewById(R.id.rv_day_picker);
-        mDayPickerAdapter = new DayPickerRecyclerAdapter(this);
+        mDayPickerAdapter = new DayPickerAdapter(this);
         mDayPickerAdapter.setOnItemSelectedListener(item -> {
             if (item.pos() == mViewModel.getSelectedDay())
                 return;
@@ -83,8 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void dataChanged(){
         setTitle(getString(R.string.schedule_title_live));
-        if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() > getScheduleFromViewModel().days().size())
-            mViewModel.setSelectedDay(Util.getTodayDayIndex(getScheduleFromViewModel()));
+
+        if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() > getScheduleFromViewModel().days().size()) {
+            int todayIndex = Util.getTodayDayIndex(getScheduleFromViewModel());
+            if(todayIndex == -1)
+                mViewModel.setSelectedDay(0);
+        }
 
         updateSelectedDay();
         updateDayPicker();
@@ -98,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
 
             if(!mAnimationNeededOnFirstChange) {
                 ((TextView) findViewById(R.id.tv_weekday_title)).setText(day.name());
-                mLessonsAdapter.setDay(day);
+                mLessonsAdapter.setDay(day, Util.isCurrentWeekOdd(getScheduleFromViewModel()));
                 return;
             }
         }
         mDayChangeTransitionMain.animateViewChange(() -> {
             ((TextView) findViewById(R.id.tv_weekday_title)).setText(day.name());
-            mLessonsAdapter.setDay(day);
+            mLessonsAdapter.setDay(day, Util.isCurrentWeekOdd(getScheduleFromViewModel()));
         });
     }
 
@@ -112,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
         Schedule schedule = getScheduleFromViewModel();
 
         ArrayList<Day> days = schedule.days();
-        ArrayList<DayPickerRecyclerAdapter.DayPickerItem> items = new ArrayList<>(days.size());
+        ArrayList<DayPickerAdapter.DayPickerItem> items = new ArrayList<>(days.size());
 
         for (int i = 0; i < days.size(); i++) {
             Day day = days.get(i);
-            items.add(new DayPickerRecyclerAdapter.DayPickerItem(day.shortName(), i));
+            items.add(new DayPickerAdapter.DayPickerItem(day.shortName(), i));
         }
 
         if (mDayChangeTransitionDayPicker == null) {

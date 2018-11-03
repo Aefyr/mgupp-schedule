@@ -1,10 +1,11 @@
 package com.aefyr.mgupp.util;
 
+import android.util.Log;
+
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Schedule;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,30 +13,38 @@ import java.util.Date;
  */
 public class Util {
 
-    public static boolean isCurrentWeekOdd() {
-        Calendar c = Calendar.getInstance();
-        c.set(c.get(Calendar.MONTH) >= Calendar.SEPTEMBER ? c.get(Calendar.YEAR) : c.get(Calendar.YEAR) - 1, Calendar.SEPTEMBER, 1);
+    public static boolean isCurrentWeekOdd(Schedule schedule) {
+        LegitCalendar c = new LegitCalendar();
+        c.set(c.get(LegitCalendar.MONTH) >= LegitCalendar.SEPTEMBER ? c.get(LegitCalendar.YEAR) : c.get(LegitCalendar.YEAR) - 1, LegitCalendar.SEPTEMBER, 1);
 
-        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
-            c.add(Calendar.DAY_OF_WEEK, 2);
+        if (c.get(LegitCalendar.DAY_OF_WEEK) == LegitCalendar.SATURDAY || c.get(LegitCalendar.DAY_OF_WEEK) == LegitCalendar.SUNDAY)
+            c.add(LegitCalendar.DAY_OF_WEEK, 2);
 
-        int firstWeekNumber = c.get(Calendar.WEEK_OF_YEAR); //The first week in the academic year, counts as odd
+        int firstWeekNumber = c.get(LegitCalendar.WEEK_OF_YEAR); //The first week in the academic year, counts as odd
         c.setTime(new Date());
+        boolean odd = (c.get(LegitCalendar.WEEK_OF_YEAR) - firstWeekNumber) % 2 == 0;
 
-        return (c.get(Calendar.WEEK_OF_YEAR) - firstWeekNumber) % 2 == 0;
+        //This checks whether actual week has no more days with lessons left and next week should count as current instead
+        int todayWeekday = c.get(LegitCalendar.DAY_OF_WEEK);
+        c.setTime(schedule.days().get(schedule.days().size()-1).weekdayDate());
+        if(todayWeekday >c.get(LegitCalendar.DAY_OF_WEEK)) {
+            return !odd;
+        }
+
+        return odd;
     }
 
     public static int getTodayDayIndex(Schedule schedule) {
         ArrayList<Day> days = schedule.days();
-        Calendar calendar = Calendar.getInstance();
-        int today = calendar.get(Calendar.DAY_OF_WEEK);
+        LegitCalendar calendar = new LegitCalendar();
+        int today = calendar.get(LegitCalendar.DAY_OF_WEEK);
 
         for (int i = 0; i < days.size(); i++) {
             calendar.setTime(days.get(i).weekdayDate());
-            if (today == calendar.get(Calendar.DAY_OF_WEEK))
+            if (today == calendar.get(LegitCalendar.DAY_OF_WEEK))
                 return i;
         }
-        return 0;
+        return -1;
     }
 
 }
