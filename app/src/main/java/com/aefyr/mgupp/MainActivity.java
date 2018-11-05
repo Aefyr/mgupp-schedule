@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             int todayIndex = Utils.getTodayDayIndex(getScheduleFromViewModel());
             if(todayIndex == -1)
                 mViewModel.setSelectedDay(0);
+            else
+                mViewModel.setSelectedDay(todayIndex);
         }
 
         updateSelectedDay();
