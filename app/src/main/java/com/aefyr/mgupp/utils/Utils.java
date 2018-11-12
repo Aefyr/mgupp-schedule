@@ -24,8 +24,8 @@ public class Utils {
 
         //This checks whether actual week has no more days with lessons left and next week should count as current instead
         int todayWeekday = c.get(LegitCalendar.DAY_OF_WEEK);
-        c.setTime(schedule.days().get(schedule.days().size()-1).weekdayDate());
-        if(todayWeekday >c.get(LegitCalendar.DAY_OF_WEEK)) {
+        c.setTime(schedule.days().get(schedule.days().size() - 1).weekdayDate());
+        if (todayWeekday > c.get(LegitCalendar.DAY_OF_WEEK)) {
             return !odd;
         }
 

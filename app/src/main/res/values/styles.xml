@@ -23,4 +23,14 @@
         <item name="android:textColor">@color/colorNiceGray</item>
     </style>
 
+    <style name="ImageButtonToolbarIcon" parent="Base.Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:tint">@color/colorAccent</item>
+    </style>
+
 </resources>

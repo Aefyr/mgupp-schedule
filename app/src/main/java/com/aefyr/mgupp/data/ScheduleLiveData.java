@@ -2,10 +2,10 @@ package com.aefyr.mgupp.data;
 
 import android.content.Context;
 
-import com.aefyr.mgupp.utils.PreferencesHelper;
 import com.aefyr.mgupp.api.ApiRequest;
 import com.aefyr.mgupp.api.ScheduleGet;
 import com.aefyr.mgupp.api.model.Schedule;
+import com.aefyr.mgupp.utils.PreferencesHelper;
 
 import androidx.lifecycle.LiveData;
 

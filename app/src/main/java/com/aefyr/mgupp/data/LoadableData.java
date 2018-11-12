@@ -1,11 +1,11 @@
 package com.aefyr.mgupp.data;
 
 public class LoadableData<T> {
-    public enum LoadingState{
+    public enum LoadingState {
         LOADING, LOADED, ERROR //This state represents the state of actual data, not the cached one
     }
 
-    public enum DataState{
+    public enum DataState {
         NO_DATA, OK_LIVE, OK_CACHED
     }
 
@@ -13,30 +13,30 @@ public class LoadableData<T> {
     private DataState mDataState;
     private T mData;
 
-    public LoadableData setData(T data){
+    public LoadableData setData(T data) {
         mData = data;
         return this;
     }
 
-    public T getData(){
+    public T getData() {
         return mData;
     }
 
-    public LoadableData setLoadingState(LoadingState loadingState){
+    public LoadableData setLoadingState(LoadingState loadingState) {
         mLoadingState = loadingState;
         return this;
     }
 
-    public LoadingState getLoadingState(){
+    public LoadingState getLoadingState() {
         return mLoadingState;
     }
 
-    public LoadableData setDataState(DataState dataState){
+    public LoadableData setDataState(DataState dataState) {
         mDataState = dataState;
         return this;
     }
 
-    public DataState getDataState(){
+    public DataState getDataState() {
         return mDataState;
     }
 }

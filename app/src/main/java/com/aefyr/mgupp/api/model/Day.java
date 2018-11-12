@@ -29,7 +29,7 @@ public class Day {
         mDate = sDayNameParseSDF.parse(name);
     }
 
-    public void setSchedule(Schedule schedule){
+    public void setSchedule(Schedule schedule) {
         mSchedule = schedule;
     }
 
@@ -49,7 +49,7 @@ public class Day {
         return mDate;
     }
 
-    public ArrayList<Lesson> allLessons(){
+    public ArrayList<Lesson> allLessons() {
         return mLessons;
     }
 

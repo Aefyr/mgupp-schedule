@@ -4,16 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aefyr.mgupp.R;
+import com.aefyr.mgupp.themeengine.ThemedRecyclerViewAdapter;
+import com.aefyr.mgupp.themeengine.core.ThemeColor;
+import com.aefyr.mgupp.themeengine.core.ThemeCore;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DayPickerAdapter extends RecyclerView.Adapter<DayPickerAdapter.ViewHolder> {
+public class DayPickerAdapter extends ThemedRecyclerViewAdapter<DayPickerAdapter.ViewHolder> {
     private ArrayList<DayPickerItem> mData;
     private int mSelectedItem;
     private int mTodayItem;
@@ -45,7 +49,7 @@ public class DayPickerAdapter extends RecyclerView.Adapter<DayPickerAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(mData.get(position).mTitle);
-        holder.title.setTextColor(holder.title.getContext().getResources().getColor(position == mSelectedItem ? R.color.colorAccent : R.color.colorAlmostBlack));
+        holder.title.setTextColor(ThemeCore.getInstance().getColor(position==mSelectedItem?ThemeColor.dayPickerDayTitleActive:ThemeColor.dayPickerDayTitleInactive));
 
         holder.dot.setVisibility(position == mTodayItem ? View.VISIBLE : View.GONE);
     }
@@ -55,9 +59,31 @@ public class DayPickerAdapter extends RecyclerView.Adapter<DayPickerAdapter.View
         return mData == null ? 0 : mData.size();
     }
 
+    @Override
+    public void applyColorToViewHolder(String colorName, int color, ViewHolder viewHolder) {
+        switch (colorName) {
+            case ThemeColor.dayPickerDayTitleActive:
+                if (viewHolder.getAdapterPosition() == mSelectedItem)
+                    viewHolder.title.setTextColor(color);
+                break;
+            case ThemeColor.dayPickerDayTitleInactive:
+                if (viewHolder.getAdapterPosition() != mSelectedItem)
+                    viewHolder.title.setTextColor(color);
+                break;
+            case ThemeColor.dayPickerSelectedDayIndicator:
+                viewHolder.dot.setColorFilter(color);
+                break;
+        }
+    }
+
+    @Override
+    public String[] getObservedColors() {
+        return new String[]{ThemeColor.dayPickerDayTitleActive, ThemeColor.dayPickerDayTitleInactive, ThemeColor.dayPickerSelectedDayIndicator};
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
-        private View dot;
+        private ImageView dot;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

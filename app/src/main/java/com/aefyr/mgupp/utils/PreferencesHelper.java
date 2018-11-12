@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 public class PreferencesHelper {
     private static class Key {
         private static String SCHEDULE_ID = "schedule_id";
+        private static String DARK_MODE = "dark_mode";
     }
 
     private static PreferencesHelper sInstance;
@@ -30,5 +31,13 @@ public class PreferencesHelper {
 
     public void setScheduleId(String scheduleId) {
         mPrefs.edit().putString(Key.SCHEDULE_ID, scheduleId).apply();
+    }
+
+    public boolean isDarkModeEnabled() {
+        return mPrefs.getBoolean(Key.DARK_MODE, false);
+    }
+
+    public void setDarkModeEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(Key.DARK_MODE, enabled).apply();
     }
 }

@@ -13,14 +13,14 @@ public class LegitCalendar extends GregorianCalendar {
     public static final int SUNDAY = 6;
     public static final int SATURDAY = 7;
 
-    public LegitCalendar(){
+    public LegitCalendar() {
         setFirstDayOfWeek(Calendar.MONDAY);
     }
 
     @Override
     public int get(int field) {
         int value = super.get(field);
-        if(field == DAY_OF_WEEK){
+        if (field == DAY_OF_WEEK) {
             value--;
             if (value == 0)
                 return 7;

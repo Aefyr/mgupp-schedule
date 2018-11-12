@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.aefyr.mgupp.R;
 import com.aefyr.mgupp.api.model.Day;
 import com.aefyr.mgupp.api.model.Lesson;
+import com.aefyr.mgupp.themeengine.ThemedRecyclerViewAdapter;
+import com.aefyr.mgupp.themeengine.core.ThemeColor;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -19,13 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Aefyr on 11.10.2018.
  */
-public class LessonsAdapter extends RecyclerView.Adapter<LessonsAdapter.ViewHolder> {
+public class LessonsAdapter extends ThemedRecyclerViewAdapter<LessonsAdapter.ViewHolder> {
     private Day mDay;
     private boolean mOdd;
     private LayoutInflater mInflater;
     private SimpleDateFormat mSdf;
 
     public LessonsAdapter(Context c) {
+        super();
         mInflater = LayoutInflater.from(c);
         mSdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
     }
@@ -56,6 +59,26 @@ public class LessonsAdapter extends RecyclerView.Adapter<LessonsAdapter.ViewHold
     @Override
     public int getItemCount() {
         return mDay == null ? 0 : mDay.lessons(mOdd).size();
+    }
+
+    @Override
+    public void applyColorToViewHolder(String colorName, int color, ViewHolder viewHolder) {
+        switch (colorName) {
+            case ThemeColor.lessonTitleColor:
+                viewHolder.name.setTextColor(color);
+                break;
+            case ThemeColor.lessonTimesColor:
+                viewHolder.times.setTextColor(color);
+                break;
+            case ThemeColor.lessonInfoColor:
+                viewHolder.additionalInfo.setTextColor(color);
+                break;
+        }
+    }
+
+    @Override
+    public String[] getObservedColors() {
+        return new String[]{ThemeColor.lessonTitleColor, ThemeColor.lessonTimesColor, ThemeColor.lessonInfoColor};
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
