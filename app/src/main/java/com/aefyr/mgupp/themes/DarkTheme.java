@@ -1,12 +1,32 @@
 package com.aefyr.mgupp.themes;
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import com.aefyr.mgupp.R;
 import com.aefyr.mgupp.themeengine.core.ThemeColor;
 
 public class DarkTheme extends HardcodedTheme {
-    private static final int BACKGROUND = 0xff212121;
-    private static final int ACCENT = 0xffd81b60;
-    private static final int TEXT_DARK = 0xffffffff;
-    private static final int TEXT_LIGHT = 0xff616161;
+    private static DarkTheme sInstance;
+
+    private int BACKGROUND;
+    private int ACCENT;
+    private int TEXT_DARK;
+    private int TEXT_LIGHT;
+
+    public static DarkTheme getInstance(Context c){
+        return sInstance == null? new DarkTheme(c):sInstance;
+    }
+
+    private DarkTheme(Context c){
+        Resources res = c.getResources();
+        BACKGROUND = res.getColor(R.color.colorAlmostBlack);
+        ACCENT = res.getColor(R.color.colorAccent);
+        TEXT_DARK = res.getColor(R.color.colorPureWhite);
+        TEXT_LIGHT = res.getColor(R.color.colorLightGray);
+
+        sInstance = this;
+    }
 
     @Override
     protected void fillThemeWithColors() {

@@ -10,6 +10,7 @@ import java.util.Map;
 
 abstract class HardcodedTheme extends CustomTheme {
     private HashMap<String, Integer> mColors;
+    private boolean mColorsInitialized;
 
     public HardcodedTheme() {
         ThemeCore.getInstance().setAnimationEnabled(true);
@@ -34,6 +35,14 @@ abstract class HardcodedTheme extends CustomTheme {
     public void setColorWithoutAnimation(String colorName, int color) {
         mColors.put(colorName, color);
         notifyColorChanged(colorName, color);
+    }
+
+    @Override
+    public void onApplied() {
+        if(!mColorsInitialized){
+            fillThemeWithColors();
+            mColorsInitialized = true;
+        }
     }
 
     @Override

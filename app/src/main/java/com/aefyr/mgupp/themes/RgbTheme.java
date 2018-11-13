@@ -1,22 +1,45 @@
 package com.aefyr.mgupp.themes;
 
 import android.animation.ValueAnimator;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.Log;
 
+import com.aefyr.mgupp.R;
 import com.aefyr.mgupp.themeengine.core.ThemeColor;
 
 public class RgbTheme extends HardcodedTheme {
-    private static final int BACKGROUND = 0xff212121;
-    private static final int ACCENT = 0xffd81b60;
-    private static final int TEXT_DARK = 0xffffffff;
-    private static final int TEXT_LIGHT = 0xff616161;
+    private static RgbTheme sInstance;
+
+    private int BACKGROUND;
+    private int ACCENT;
+    private int TEXT_DARK;
+    private int TEXT_LIGHT;
 
     private float[] hsv = {0, 0.5f, 1};
+    private ValueAnimator mAnimator;
+
+    public static RgbTheme getInstance(Context c){
+        return sInstance == null? new RgbTheme(c):sInstance;
+    }
+
+    private RgbTheme(Context c){
+        Resources res = c.getResources();
+        BACKGROUND = res.getColor(R.color.colorAlmostBlack);
+        ACCENT = res.getColor(R.color.colorAccent);
+        TEXT_DARK = res.getColor(R.color.colorPureWhite);
+        TEXT_LIGHT = res.getColor(R.color.colorLightGray);
+
+        sInstance = this;
+    }
 
     @Override
     public void onApplied() {
-        ValueAnimator rgbAnimator = ValueAnimator.ofFloat(0, 360);
-        rgbAnimator.addUpdateListener((a) -> {
+        super.onApplied();
+
+        mAnimator = ValueAnimator.ofFloat(0, 360);
+        mAnimator.addUpdateListener((a) -> {
             hsv[0] = (float) a.getAnimatedValue();
             int color = Color.HSVToColor(hsv);
             setColorWithoutAnimation(ThemeColor.actionBarIconSettings, color);
@@ -24,10 +47,17 @@ public class RgbTheme extends HardcodedTheme {
             setColorWithoutAnimation(ThemeColor.dayPickerDayTitleActive, color);
             setColorWithoutAnimation(ThemeColor.dayPickerSelectedDayIndicator, color);
         });
-        rgbAnimator.setRepeatMode(ValueAnimator.RESTART);
-        rgbAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        rgbAnimator.setDuration(8000);
-        rgbAnimator.start();
+        mAnimator.setRepeatMode(ValueAnimator.RESTART);
+        mAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        mAnimator.setDuration(8000);
+        mAnimator.start();
+    }
+
+    @Override
+    public void onRemoved() {
+        super.onRemoved();
+        mAnimator.end();
+        mAnimator = null;
     }
 
     @Override

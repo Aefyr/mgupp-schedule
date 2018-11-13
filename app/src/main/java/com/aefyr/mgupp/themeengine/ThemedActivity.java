@@ -18,8 +18,8 @@ public abstract class ThemedActivity extends AppCompatActivity implements ThemeC
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         ThemeCore.getInstance().unregister(this);
     }
 

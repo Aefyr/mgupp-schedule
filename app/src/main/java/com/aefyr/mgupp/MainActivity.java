@@ -48,9 +48,9 @@ public class MainActivity extends ThemedActivity {
         setContentView(R.layout.activity_main);
 
         if (PreferencesHelper.getInstance(this).isDarkModeEnabled())
-            ThemeCore.getInstance().setTheme(new DarkTheme());
+            ThemeCore.getInstance().setTheme(DarkTheme.getInstance(this));
         else
-            ThemeCore.getInstance().setTheme(new DefaultTheme());
+            ThemeCore.getInstance().setTheme(DefaultTheme.getInstance(this));
 
         ThemeCore.getInstance().setAnimationEnabled(true);
 
@@ -82,16 +82,16 @@ public class MainActivity extends ThemedActivity {
 
         findViewById(R.id.ib_dark_mode).setOnClickListener((v -> {
             if (ThemeCore.getInstance().getTheme() instanceof DefaultTheme) {
-                ThemeCore.getInstance().setTheme(new DarkTheme());
+                ThemeCore.getInstance().setTheme(DarkTheme.getInstance(this));
                 PreferencesHelper.getInstance(this).setDarkModeEnabled(true);
             } else {
-                ThemeCore.getInstance().setTheme(new DefaultTheme());
+                ThemeCore.getInstance().setTheme(DefaultTheme.getInstance(this));
                 PreferencesHelper.getInstance(this).setDarkModeEnabled(false);
             }
         }));
 
         findViewById(R.id.ib_dark_mode).setOnLongClickListener((v -> {
-            ThemeCore.getInstance().setTheme(new RgbTheme());
+            ThemeCore.getInstance().setTheme(RgbTheme.getInstance(this));
             return true;
         }));
 
