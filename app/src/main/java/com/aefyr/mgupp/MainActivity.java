@@ -113,7 +113,7 @@ public class MainActivity extends ThemedActivity {
     private void dataChanged() {
         setTitle(getString(R.string.schedule_title_live));
 
-        if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() > getScheduleFromViewModel().days().size()) {
+        if (mViewModel.getSelectedDay() == -1 || mViewModel.getSelectedDay() >= getScheduleFromViewModel().days().size()) {
             int todayIndex = Utils.getTodayDayIndex(getScheduleFromViewModel());
             if (todayIndex == -1)
                 mViewModel.setSelectedDay(0);
