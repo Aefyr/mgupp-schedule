@@ -14,11 +14,11 @@ public class DarkTheme extends HardcodedTheme {
     private int TEXT_DARK;
     private int TEXT_LIGHT;
 
-    public static DarkTheme getInstance(Context c){
-        return sInstance == null? new DarkTheme(c):sInstance;
+    public static DarkTheme getInstance(Context c) {
+        return sInstance == null ? new DarkTheme(c) : sInstance;
     }
 
-    private DarkTheme(Context c){
+    private DarkTheme(Context c) {
         Resources res = c.getResources();
         BACKGROUND = res.getColor(R.color.colorAlmostBlack);
         ACCENT = res.getColor(R.color.colorAccent);

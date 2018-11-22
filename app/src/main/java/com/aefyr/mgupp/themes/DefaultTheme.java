@@ -14,11 +14,11 @@ public class DefaultTheme extends HardcodedTheme {
     private int TEXT_DARK;
     private int TEXT_LIGHT;
 
-    public static DefaultTheme getInstance(Context c){
-        return sInstance == null? new DefaultTheme(c):sInstance;
+    public static DefaultTheme getInstance(Context c) {
+        return sInstance == null ? new DefaultTheme(c) : sInstance;
     }
 
-    private DefaultTheme(Context c){
+    private DefaultTheme(Context c) {
         Resources res = c.getResources();
         BACKGROUND = res.getColor(R.color.colorPureWhite);
         ACCENT = res.getColor(R.color.colorAccent);

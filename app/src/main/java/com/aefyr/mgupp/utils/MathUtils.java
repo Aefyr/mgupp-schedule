@@ -10,4 +10,12 @@ public class MathUtils {
         return a + (b - a) * t;
     }
 
+    public static int clamp(int a, int min, int max) {
+        if (a < min)
+            return min;
+        if (a > max)
+            return max;
+        return a;
+    }
+
 }

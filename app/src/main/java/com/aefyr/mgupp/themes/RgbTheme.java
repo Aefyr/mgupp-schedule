@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.aefyr.mgupp.R;
 import com.aefyr.mgupp.themeengine.core.ThemeColor;
@@ -20,11 +19,11 @@ public class RgbTheme extends HardcodedTheme {
     private float[] hsv = {0, 0.5f, 1};
     private ValueAnimator mAnimator;
 
-    public static RgbTheme getInstance(Context c){
-        return sInstance == null? new RgbTheme(c):sInstance;
+    public static RgbTheme getInstance(Context c) {
+        return sInstance == null ? new RgbTheme(c) : sInstance;
     }
 
-    private RgbTheme(Context c){
+    private RgbTheme(Context c) {
         Resources res = c.getResources();
         BACKGROUND = res.getColor(R.color.colorAlmostBlack);
         ACCENT = res.getColor(R.color.colorAccent);

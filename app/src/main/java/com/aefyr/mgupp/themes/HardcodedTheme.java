@@ -39,7 +39,7 @@ abstract class HardcodedTheme extends CustomTheme {
 
     @Override
     public void onApplied() {
-        if(!mColorsInitialized){
+        if (!mColorsInitialized) {
             fillThemeWithColors();
             mColorsInitialized = true;
         }

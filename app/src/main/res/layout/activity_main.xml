@@ -10,58 +10,32 @@
     tools:context=".MainActivity">
 
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.aefyr.mgupp.view.coolbar.Coolbar
+        android:id="@+id/coolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPureWhite"
-        android:clipChildren="false"
-        android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
-
-    </androidx.appcompat.widget.Toolbar>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@android:color/transparent"
-        android:clipChildren="false"
-        android:elevation="5dp">
-
-        <ImageButton
-            android:id="@+id/ib_dark_mode"
-            style="@style/ImageButtonToolbarIcon"
-            android:layout_gravity="start"
-            android:rotation="30"
-            app:srcCompat="@drawable/outline_brightness_2_black_48" />
+        app:title="Schedule">
 
         <ImageButton
             android:id="@+id/ib_settings"
             style="@style/ImageButtonToolbarIcon"
-            android:layout_gravity="end"
+            app:coolbar_gravity="end"
             app:srcCompat="@drawable/outline_settings_black_48" />
-    </FrameLayout>
 
-    <TextView
-        android:id="@+id/tv_schedule_title"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:elevation="5dp"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearanceTitle" />
+        <ImageButton
+            android:id="@+id/ib_dark_mode"
+            style="@style/ImageButtonToolbarIcon"
+            android:rotation="30"
+            app:coolbar_gravity="start"
+            app:srcCompat="@drawable/outline_brightness_2_black_48" />
+    </com.aefyr.mgupp.view.coolbar.Coolbar>
 
     <FrameLayout
         android:id="@+id/container_day"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/container_day_picker"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="-12dp">
+        android:layout_below="@+id/coolbar">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -78,18 +52,13 @@
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/container_day_picker"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-8dp"
-        android:layout_marginEnd="-8dp"
-        android:layout_marginBottom="-12dp"
-        app:cardBackgroundColor="@color/colorPureWhite"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="8dp"
-        app:cardUseCompatPadding="true">
+        android:background="@color/colorPureWhite"
+        android:elevation="8dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_day_picker"
@@ -98,6 +67,6 @@
             android:layout_gravity="center"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp" />
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
 </RelativeLayout>

@@ -49,7 +49,7 @@ public class DayPickerAdapter extends ThemedRecyclerViewAdapter<DayPickerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(mData.get(position).mTitle);
-        holder.title.setTextColor(ThemeCore.getInstance().getColor(position==mSelectedItem?ThemeColor.dayPickerDayTitleActive:ThemeColor.dayPickerDayTitleInactive));
+        holder.title.setTextColor(ThemeCore.getInstance().getColor(position == mSelectedItem ? ThemeColor.dayPickerDayTitleActive : ThemeColor.dayPickerDayTitleInactive));
 
         holder.dot.setVisibility(position == mTodayItem ? View.VISIBLE : View.GONE);
     }

@@ -21,6 +21,7 @@ import com.aefyr.mgupp.themes.DefaultTheme;
 import com.aefyr.mgupp.themes.RgbTheme;
 import com.aefyr.mgupp.utils.PreferencesHelper;
 import com.aefyr.mgupp.utils.Utils;
+import com.aefyr.mgupp.view.coolbar.Coolbar;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,6 @@ public class MainActivity extends ThemedActivity {
     private boolean mAnimationNeededOnFirstChange = false; //And it's needed when there's no data available to show instantly and the placeholder will be shown for some time
     private ViewChangeAlphaTransition mDayChangeTransitionMain;
     private ViewChangeAlphaTransition mDayChangeTransitionDayPicker;
-    private ViewChangeAlphaTransition mTitleChangeTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainActivity extends ThemedActivity {
             ThemeCore.getInstance().setTheme(DefaultTheme.getInstance(this));
 
         ThemeCore.getInstance().setAnimationEnabled(true);
+
 
         RecyclerView lessonsRecycler = findViewById(R.id.rv_weekday_lessons);
         mLessonsAdapter = new LessonsAdapter(MainActivity.this);
@@ -168,7 +169,7 @@ public class MainActivity extends ThemedActivity {
     }
 
     private void setTitle(String title) {
-        ((TextView) findViewById(R.id.tv_schedule_title)).setText(title);
+        ((Coolbar) findViewById(R.id.coolbar)).setTitle(title);
     }
 
     private Schedule getScheduleFromViewModel() {
@@ -199,7 +200,7 @@ public class MainActivity extends ThemedActivity {
                 findViewById(R.id.container_main).setBackgroundColor(color);
                 break;
             case ThemeColor.actionBarBackground:
-                findViewById(R.id.toolbar).setBackgroundColor(color);
+                findViewById(R.id.coolbar).setBackgroundColor(color);
                 break;
             case ThemeColor.actionBarIconSettings:
                 ((ImageButton) findViewById(R.id.ib_settings)).setColorFilter(color);
@@ -208,7 +209,7 @@ public class MainActivity extends ThemedActivity {
                 ((ImageButton) findViewById(R.id.ib_dark_mode)).setColorFilter(color);
                 break;
             case ThemeColor.actionBarTitle:
-                ((TextView) findViewById(R.id.tv_schedule_title)).setTextColor(color);
+                ((Coolbar) findViewById(R.id.coolbar)).setTitleColor(color);
                 break;
             case ThemeColor.weekdayBackground:
                 ((CardView) findViewById(R.id.container_lessons)).setCardBackgroundColor(color);
@@ -217,7 +218,7 @@ public class MainActivity extends ThemedActivity {
                 ((TextView) findViewById(R.id.tv_weekday_title)).setTextColor(color);
                 break;
             case ThemeColor.dayPickerBackground:
-                ((CardView) findViewById(R.id.container_day_picker)).setCardBackgroundColor(color);
+                findViewById(R.id.container_day_picker).setBackgroundColor(color);
                 break;
 
         }
